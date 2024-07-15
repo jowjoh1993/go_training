@@ -6,38 +6,29 @@ import (
 	"os"
 )
 
-// Goals
-// 1. Validate user input (show error and exit)
-//   - No negative numbers
-//   - Non zero
-// 2. Store calculated results into a file
-
 func main() {
 	// Get user input
 	revenue, err := userInput("Enter revenue: ")
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println("----------")
-		return
-	}
+	handleError(err)
+
 	expenses, err := userInput("Enter expenses: ")
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println("----------")
-		return
-	}
+	handleError(err)
+
 	taxRate, err := userInput("Enter tax rate: ")
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println("----------")
-		return
-	}
+	handleError(err)
 
 	// Calculate EBT, profit, and ratio
 	EBT, profit, ratio := calcMetrics(revenue, expenses, taxRate)
 
 	// Output results to a file
 	writeToFile("metrics.txt", EBT, profit, ratio)
+}
+
+// If error is passed, show stack and exit
+func handleError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
 
 // Prompts user for input, then passes input to pointer
