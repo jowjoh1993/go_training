@@ -2,11 +2,11 @@ package main
 
 import "fmt"
 
-type Product struct {
-	title string
-	id    string
-	price float64
-}
+// type Product struct {
+// 	title string
+// 	id    string
+// 	price float64
+// }
 
 func main() {
 	// Slice with dynamic length
