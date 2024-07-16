@@ -1,4 +1,4 @@
-package main
+package lists
 
 import "fmt"
 
@@ -23,6 +23,13 @@ func main() {
 
 	// Remove elements by taking slices
 	prices = prices[1:]
+	fmt.Println(prices)
+
+	discountPrices := []float64{101.99, 80.99, 20.59}
+
+	// Append the elements of one slice onto another
+	// Use the '...' operator to extract the elements of the array
+	prices = append(prices, discountPrices...)
 	fmt.Println(prices)
 }
 
