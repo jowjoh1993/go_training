@@ -47,8 +47,6 @@ func main() {
 		return
 	}
 
-	printSomething(todo)
-
 	err = outputData(userNote)
 	if err != nil {
 		return
