@@ -43,10 +43,11 @@ func New(io iomanager.IOManager, taxRate float64) *TaxIncludedPriceJob {
 	}
 }
 
-func (job *TaxIncludedPriceJob) Process() error {
+func (job *TaxIncludedPriceJob) Process(done chan bool, errorChan chan error) {
 	err := job.LoadData()
 	if err != nil {
-		return err
+		errorChan <- err
+		return
 	}
 
 	result := make(map[string]string)
@@ -58,10 +59,12 @@ func (job *TaxIncludedPriceJob) Process() error {
 
 	job.TaxIncludedPrices = result
 
+	// Goroutine does not support "return" statement
 	err = job.IOManager.WriteResult(job)
 	if err != nil {
-		return err
+		errorChan <- err
+		return
 	}
 
-	return nil
+	done <- true
 }
